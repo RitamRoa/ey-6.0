@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Shield, History, Database, AlertTriangle } from 'lucide-react';
+import { History, Database } from 'lucide-react';
 import api from '../api/client';
 import { Provider, ProviderSource, ChangeLogEntry } from '../types';
 import clsx from 'clsx';

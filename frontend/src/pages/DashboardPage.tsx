@@ -144,7 +144,7 @@ const DashboardPage: React.FC = () => {
                   paddingAngle={5}
                   dataKey="value"
                 >
-                  {riskData.map((entry, index) => (
+                  {riskData.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
