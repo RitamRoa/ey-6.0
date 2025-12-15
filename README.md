@@ -58,7 +58,12 @@ cp .env.example .env -> the below is a mock .env file
 # Start the server
 npm run dev
 ```
-## 👥 Team
+## Team
+ The team includes 
+   Esheshwari 
+   Deepthi Nagraj 
+   Bonthala Lalith Aditya 
+   Ritam Rao 
 
 **Made with ❤️ by Team NeuroGrid**
 
