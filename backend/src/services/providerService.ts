@@ -195,10 +195,18 @@ export async function getDashboardMetrics() {
     .order('started_at', { ascending: false })
     .limit(5);
 
+  // Calculate average accuracy from recent runs
+  let avgAccuracy = 0;
+  if (recentRuns && recentRuns.length > 0) {
+    const sum = recentRuns.reduce((acc, run) => acc + (run.accuracy_after || 0), 0);
+    avgAccuracy = sum / recentRuns.length;
+  }
+
   return {
     total_providers: totalProviders || 0,
     num_high_risk: highRisk || 0,
     num_low_confidence: lowConfidence || 0,
     recent_validation_runs: recentRuns || [],
+    avg_accuracy: avgAccuracy,
   };
 }

@@ -44,7 +44,10 @@ const DashboardPage: React.FC = () => {
     { name: 'Low/Medium Risk', value: metrics.total_providers - metrics.num_high_risk },
   ];
 
-  const COLORS = ['#EF4444', '#10B981'];
+  const CHART_COLORS = {
+    bar: '#8B5CF6', // Violet
+    pie: ['#F43F5E', '#10B981'], // Rose, Emerald
+  };
 
   const runData = metrics.recent_validation_runs.map(run => ({
     name: new Date(run.started_at).toLocaleDateString(),
@@ -53,10 +56,10 @@ const DashboardPage: React.FC = () => {
   })).reverse();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="md:flex md:items-center md:justify-between">
         <div className="flex-1 min-w-0">
-          <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+          <h2 className="text-2xl font-bold leading-7 text-gray-900 dark:text-white sm:text-3xl sm:truncate tracking-tight">
             Dashboard
           </h2>
         </div>
@@ -64,7 +67,7 @@ const DashboardPage: React.FC = () => {
           <button
             onClick={handleRefreshAll}
             disabled={refreshing}
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+            className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-all"
           >
             {refreshing ? (
               <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
@@ -78,48 +81,48 @@ const DashboardPage: React.FC = () => {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="bg-white dark:bg-gray-900 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 transition-colors">
           <div className="p-5">
             <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <Activity className="h-6 w-6 text-gray-400" />
+              <div className="flex-shrink-0 p-3 rounded-lg bg-indigo-50 dark:bg-indigo-900/20">
+                <Activity className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Total Providers</dt>
-                  <dd className="text-3xl font-semibold text-gray-900">{metrics.total_providers}</dd>
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Total Providers</dt>
+                  <dd className="text-3xl font-bold text-gray-900 dark:text-white">{metrics.total_providers}</dd>
                 </dl>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="bg-white dark:bg-gray-900 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 transition-colors">
           <div className="p-5">
             <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <AlertTriangle className="h-6 w-6 text-red-400" />
+              <div className="flex-shrink-0 p-3 rounded-lg bg-red-50 dark:bg-red-900/20">
+                <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">High Risk Providers</dt>
-                  <dd className="text-3xl font-semibold text-gray-900">{metrics.num_high_risk}</dd>
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">High Risk</dt>
+                  <dd className="text-3xl font-bold text-gray-900 dark:text-white">{metrics.num_high_risk}</dd>
                 </dl>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="bg-white dark:bg-gray-900 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 transition-colors">
           <div className="p-5">
             <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <CheckCircle className="h-6 w-6 text-yellow-400" />
+              <div className="flex-shrink-0 p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900/20">
+                <CheckCircle className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Low Confidence</dt>
-                  <dd className="text-3xl font-semibold text-gray-900">{metrics.num_low_confidence}</dd>
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Avg Accuracy</dt>
+                  <dd className="text-3xl font-bold text-gray-900 dark:text-white">{(metrics.avg_accuracy * 100).toFixed(1)}%</dd>
                 </dl>
               </div>
             </div>
@@ -128,45 +131,62 @@ const DashboardPage: React.FC = () => {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="bg-white shadow rounded-lg p-6">
-          <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Risk Distribution</h3>
-          <div className="h-64">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 transition-colors">
+          <h3 className="text-lg leading-6 font-semibold text-gray-900 dark:text-white mb-6">Risk Distribution</h3>
+          <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={riskData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  fill="#8884d8"
+                  innerRadius={80}
+                  outerRadius={100}
                   paddingAngle={5}
                   dataKey="value"
+                  stroke="none"
                 >
                   {riskData.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell key={`cell-${index}`} fill={CHART_COLORS.pie[index % CHART_COLORS.pie.length]} />
                   ))}
                 </Pie>
-                <Tooltip />
-                <Legend />
+                <Tooltip 
+                  contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', color: '#F3F4F6' }}
+                  itemStyle={{ color: '#F3F4F6' }}
+                />
+                <Legend wrapperStyle={{ paddingTop: '20px' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="bg-white shadow rounded-lg p-6">
-          <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Validation Accuracy Trend</h3>
-          <div className="h-64">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 transition-colors">
+          <h3 className="text-lg leading-6 font-semibold text-gray-900 dark:text-white mb-6">Validation Accuracy Trend</h3>
+          <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={runData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="before" fill="#9CA3AF" name="Accuracy Before" />
-                <Bar dataKey="after" fill="#4F46E5" name="Accuracy After" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" vertical={false} />
+                <XAxis 
+                  dataKey="name" 
+                  stroke="#9CA3AF" 
+                  tick={{ fill: '#9CA3AF' }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <YAxis 
+                  stroke="#9CA3AF" 
+                  tick={{ fill: '#9CA3AF' }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <Tooltip 
+                  cursor={{ fill: '#374151', opacity: 0.2 }}
+                  contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', color: '#F3F4F6' }}
+                />
+                <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                <Bar dataKey="before" name="Before Validation" fill="#6366F1" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="after" name="After Validation" fill="#10B981" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

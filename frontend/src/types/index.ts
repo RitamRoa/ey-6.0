@@ -50,5 +50,6 @@ export interface DashboardMetrics {
   total_providers: number;
   num_high_risk: number;
   num_low_confidence: number;
+  avg_accuracy: number;
   recent_validation_runs: ValidationRun[];
 }

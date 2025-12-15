@@ -43,10 +43,10 @@ const UploadPage: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Upload Provider Directory</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">Upload Provider Directory</h1>
       
-      <div className="bg-white shadow sm:rounded-lg p-6">
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-indigo-500 transition-colors">
+      <div className="bg-white dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-800 sm:rounded-xl p-6 transition-colors">
+        <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-12 text-center hover:border-indigo-500 dark:hover:border-indigo-500 transition-colors">
           <input
             type="file"
             accept=".pdf"
@@ -55,32 +55,32 @@ const UploadPage: React.FC = () => {
             id="file-upload"
           />
           <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center">
-            <Upload className="h-12 w-12 text-gray-400 mb-4" />
-            <span className="text-lg font-medium text-gray-900">
+            <Upload className="h-12 w-12 text-gray-400 dark:text-gray-500 mb-4" />
+            <span className="text-lg font-medium text-gray-900 dark:text-white">
               {file ? file.name : 'Click to upload PDF'}
             </span>
-            <span className="text-sm text-gray-500 mt-1">
+            <span className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               {file ? 'Change file' : 'PDF files only'}
             </span>
           </label>
         </div>
 
         {error && (
-          <div className="mt-4 p-4 bg-red-50 rounded-md flex items-center text-red-700">
+          <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center text-red-700 dark:text-red-300 border border-red-100 dark:border-red-900/30">
             <AlertCircle className="h-5 w-5 mr-2" />
             {error}
           </div>
         )}
 
         {successCount !== null && (
-          <div className="mt-4 p-4 bg-green-50 rounded-md">
-            <div className="flex items-center text-green-700 mb-2">
+          <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-900/30">
+            <div className="flex items-center text-green-700 dark:text-green-300 mb-2">
               <CheckCircle className="h-5 w-5 mr-2" />
               Successfully extracted {successCount} providers!
             </div>
             <button
               onClick={() => navigate('/providers')}
-              className="text-sm font-medium text-green-700 hover:text-green-600 underline"
+              className="text-sm font-medium text-green-700 dark:text-green-300 hover:text-green-600 dark:hover:text-green-200 underline"
             >
               View Providers &rarr;
             </button>
@@ -91,7 +91,7 @@ const UploadPage: React.FC = () => {
           <button
             onClick={handleUpload}
             disabled={!file || loading}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             {loading ? (
               <>
@@ -104,7 +104,7 @@ const UploadPage: React.FC = () => {
             ) : (
               <>
                 <FileText className="mr-2 h-5 w-5" />
-                Upload & Extract
+                Extract Data
               </>
             )}
           </button>
