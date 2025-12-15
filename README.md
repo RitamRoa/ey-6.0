@@ -1,42 +1,40 @@
-# NeuroGrid 🧠
+# NeuroGrid 
 
 **The Self-Healing Provider Directory for Modern Healthcare.**
 
 > *Data decay is a silent killer in healthcare operations. NeuroGrid stops it.*
 
-NeuroGrid is an intelligent, automated system designed to keep healthcare provider directories accurate, up-to-date, and compliant. It acts as a "self-healing" layer that continuously verifies provider data against external sources, resolves conflicts using AI, and flags high-risk discrepancies before they impact patient care or claims processing.
+NeuroGrid is a system designed to keep healthcare provider directories accurate and up-to-date. It acts as a "self-healing" layer that continuously verifies provider data against external sources, resolves conflicts using AI, and flags high-risk discrepancies before they impact patient care or claims processing.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-*   **🛡️ Risk Scoring**: Automatically assigns risk levels to providers based on data staleness and verification failures.
-*   **👁️ TruthLens™**: Our AI engine (powered by Gemini) that resolves conflicts between multiple data sources (e.g., PDF rosters vs. websites) to find the "single source of truth."
-*   **⚡ Instant Sync**: Real-time updates across the network.
-*   **📄 Smart Ingestion**: Upload provider rosters (PDF/CSV) and let the system extract, validate, and merge the data automatically.
-*   **📊 Insightful Dashboard**: A clean, dark-mode interface to monitor network health, validation accuracy, and recent changes.
-
+*   **Risk Scoring**: Automatically assigns risk levels to providers based on data staleness and verification failures.
+*   **TruthLens™**: Our AI engine (powered by Gemini) that resolves conflicts between multiple data sources (e.g., PDF rosters vs. websites) to find the "single source of truth". 
+*   **Instant Sync**: Real-time updates.
+*   **Smart Ingestion**: Upload provider rosters (PDF/CSV) and let the system extract and merge the data automatically.
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 We built NeuroGrid with a focus on speed, reliability, and developer experience.
 
-*   **Frontend**: React, Vite, Tailwind CSS, Recharts, Lucide Icons.
+*   **Frontend**: React, Vite, Tailwind CSS.
 *   **Backend**: Node.js, Express, TypeScript.
 *   **Database**: Supabase (PostgreSQL).
-*   **AI/ML**: Google Gemini API (for intelligent data extraction and validation).
+*   **AI/ML**: Google Gemini API (for data extraction and validation).
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-Follow these steps to get NeuroGrid running locally.
+Follow the below steps.
 
 ### Prerequisites
 
 *   Node.js (v18+)
-*   npm or yarn
+*   npm install 
 *   A Supabase project (for the database)
 *   A Google Gemini API Key
 
@@ -53,30 +51,13 @@ cd ey-neurogrid
 cd backend
 npm install
 
-# Create a .env file
-cp .env.example .env
+# Create .env file 
+cp .env.example .env -> the below is a mock .env file 
 # Fill in your SUPABASE_URL, SUPABASE_KEY, and GEMINI_API_KEY in .env
 
 # Start the server
 npm run dev
 ```
-
-### 3. Frontend Setup
-
-Open a new terminal:
-
-```bash
-cd frontend
-npm install
-
-# Start the development server
-npm run dev
-```
-
-Visit `http://localhost:5173` (or the port shown in your terminal) to launch the application.
-
----
-
 ## 👥 Team
 
 **Made with ❤️ by Team NeuroGrid**
