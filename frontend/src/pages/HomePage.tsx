@@ -16,11 +16,6 @@ const HomePage: React.FC = () => {
           
           {/* Left Content */}
           <div className="space-y-8">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-              <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span className="text-sm font-medium text-gray-300">System Operational</span>
-            </div>
-
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">
                 NeuroGrid
@@ -75,6 +70,12 @@ const HomePage: React.FC = () => {
           </div>
 
         </div>
+      </div>
+
+      <div className="absolute bottom-8 left-0 w-full text-center z-10">
+        <p className="text-gray-500 text-sm font-medium">
+          Made with <span className="text-red-500 animate-pulse">♥</span> by Team NeuroGrid
+        </p>
       </div>
     </div>
   );
